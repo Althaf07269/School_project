@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #3494E6, #EC6EAD);
+      height: 100vh;
+    }
+
+    /* Styling for form elements */
+    form {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for input fields */
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    /* Style for submit button */
+    input[type="submit"] {
+      background-color: blue;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: navy;
+    }
+
+    /* Style for logout button */
+    a {
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    input[type="button"] {
+      background-color: blue;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="button"]:hover {
+      background-color: navy;
+    }
+  </style>
+  <title>Enquiry Form</title>
+</head>
+<body>
+<form method="post">
+    <h2 style="text-align: center; color: #3494E6;">STUDENT FORM</h2>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="SUBMIT" style="background-color: #3494E6; color: white;">
+    <a href="{% url 'logout' %}">
+    <input type="button" value="LOGOUT" style="background-color: #3494E6; color: white;">
+</a>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_department_name').change(function () {
+            var department = $(this).val();
+            var courses = {
+                'Engineering': [
+                    ['Computer Engineering', 'Computer Engineering'],
+                    ['Chemical Engineering', 'Chemical Engineering'],
+                    ['Electrical Engineering', 'Electrical Engineering'],
+                    ['Mechanical Engineering', 'Mechanical Engineering'],
+                    ['Civil Engineering', 'Civil Engineering'],
+                ],
+                'Medicine': [
+                    ['MBBS', 'MBBS'],
+                    ['BDS', 'BDS'],
+                    ['Pharmacy', 'Pharmacy'],
+                ],
+                'Bachelor': [
+                    ['BBA', 'BBA'],
+                    ['BCA', 'BCA'],
+                    ['BCOM', 'BCOM'],
+                ]
+            };
+            var courseOptions = courses[department] || [];
+            var optionsHtml = '';
+            for (var i = 0; i < courseOptions.length; i++) {
+                optionsHtml += '<option value="' + courseOptions[i][0] + '">' + courseOptions[i][1] + '</option>';
+            }
+            $('#id_course_name').html(optionsHtml);
+        });
+    });
+</script>
+</body>
+</html>
